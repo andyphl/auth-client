@@ -1,18 +1,10 @@
-import { Icon, Input, Button, Card } from "../components";
+import { Icon, Input, Button } from "../components";
 import { Link } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
 
 export const SignIn = () => {
   return (
-    <Card className="flex flex-col gap-5 px-5 py-10 my-28 w-10/12 sm:w-1/2 relative bg-white">
-      <Link
-        to="/"
-        className="absolute top-2 right-2 block p-2 group transition-base cursor-pointer"
-      >
-        <Icon.ArrowLeftCircle className="h-10 w-10 pointer-events-none stroke-primary-base group-hover:stroke-secondary-dark  transition-base" />
-      </Link>
-      <h2 className="skew-title text-5xl uppercase tracking-widest mb-8 ">
-        Sign In
-      </h2>
+    <AuthLayout title="Sign In">
       <form className="flex flex-col gap-5 mb-4">
         <Input
           type="email"
@@ -41,6 +33,6 @@ export const SignIn = () => {
           Sign up
         </Link>
       </p>
-    </Card>
+    </AuthLayout>
   );
 };
