@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const SignIn = () => {
   return (
-    <Card className="flex flex-col gap-5 px-5 py-10 w-10/12 sm:w-1/2 relative bg-white">
+    <Card className="flex flex-col gap-5 px-5 py-10 my-28 w-10/12 sm:w-1/2 relative bg-white">
       <Link
         to="/"
         className="absolute top-2 right-2 block p-2 group transition-base cursor-pointer"
