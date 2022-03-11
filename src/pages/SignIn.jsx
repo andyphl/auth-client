@@ -1,4 +1,4 @@
-import { Icon, Input, Button } from "../components";
+import { Icon, Label, Button } from "../components";
 import { Link } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 
