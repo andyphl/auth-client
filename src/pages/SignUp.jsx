@@ -128,7 +128,7 @@ export const SignUp = () => {
           to="/signin"
           className="text-primary-base font-bold ml-2 hover:text-secondary-dark transition-base"
         >
-          Sign In
+          Sign Up
         </Link>
       </p>
     </AuthLayout>
