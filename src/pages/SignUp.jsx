@@ -2,10 +2,10 @@ import { Icon, Button, Label, ValidMessage, ValidIcon } from "../components";
 import { Link } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import { useEffect, useState } from "react";
+import axios from "../services/axios.services";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40}$/;
-// const INVALID_REGEX = /^.*[`"'=].*$/;
 
 export const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,8 +26,6 @@ export const SignUp = () => {
 
   useEffect(() => {
     const result = PASSWORD_REGEX.test(password);
-    console.log(result);
-    console.log(password.length);
     setIsPasswordValid(result);
   }, [password]);
 
@@ -40,9 +38,33 @@ export const SignUp = () => {
     setErrorMessage("");
   }, [password]);
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    console.log(event);
+    const { username, email, password } = Object.fromEntries(
+      new FormData(event.target).entries()
+    );
+
+    if (!EMAIL_REGEX.test(email) || !PASSWORD_REGEX.test(password)) {
+      setErrorMessage("Invalid user input");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "/api/auth/signup",
+        JSON.stringify({ username, email, password })
+      );
+      const { token, user } = response.data;
+      console.log(token, user);
+    } catch (error) {
+      setErrorMessage(error?.response?.data?.message);
+    }
+  };
+
   return (
     <AuthLayout title="Sign Up">
-      <form className="flex flex-col gap-4 mb-4">
+      <form className="flex flex-col gap-4 mb-4" onSubmit={onSubmit}>
         <div className="input-wrap">
           <Label id="username">
             <Icon.User /> Username
@@ -113,6 +135,9 @@ export const SignUp = () => {
             <span>Password doesn't match.</span>
           </ValidMessage>
         </div>
+        {errorMessage.length !== 0 && (
+          <p className="text-red-500 text-center">{errorMessage}</p>
+        )}
         <Button
           disabled={
             !isEmailValid || !isPasswordValid || !isPasswordMatch ? true : false
