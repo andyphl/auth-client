@@ -144,7 +144,7 @@ export const SignUp = () => {
           }
           className="text-lg mt-5 transition-base"
         >
-          Sign In
+          Sign Up
         </Button>
       </form>
       <p className="text-center">
@@ -153,7 +153,7 @@ export const SignUp = () => {
           to="/signin"
           className="text-primary-base font-bold ml-2 hover:text-secondary-dark transition-base"
         >
-          Sign Up
+          Sign In
         </Link>
       </p>
     </AuthLayout>
