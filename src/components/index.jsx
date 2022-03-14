@@ -6,3 +6,4 @@ export * from "./ValidMessage";
 export * from "./ValidIcon";
 export * from "./Input";
 export * from "./ErrorResponse";
+export * from "./PersistLogin";
