@@ -1,12 +1,8 @@
 import clsx from "clsx";
 
-export const Button = ({ disabled, className, children }) => {
+export const Button = ({ className, children, ...restProps }) => {
   return (
-    <button
-      disabled={disabled}
-      className={clsx("btn", className)}
-      type="submit"
-    >
+    <button {...restProps} className={clsx("btn", className)} type="submit">
       {children}
     </button>
   );

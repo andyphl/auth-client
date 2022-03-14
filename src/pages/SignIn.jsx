@@ -1,8 +1,8 @@
-import { Icon, Label, Button } from "../components";
+import { Icon, Label, Button, ErrorResponse, Input } from "../components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import axios from "../services/axios.services";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 
 export const SignIn = () => {
@@ -10,6 +10,7 @@ export const SignIn = () => {
   const location = useLocation();
   const prevPath = location.state?.from?.pathname || "/";
   const { setAuth } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -22,54 +23,51 @@ export const SignIn = () => {
         "/api/auth/signin",
         JSON.stringify({ email, password })
       );
-
       const { user, token } = response?.data;
       setAuth({ user, token });
 
       navigate(prevPath, { replace: true });
     } catch (error) {
-      console.log(error.response);
+      setErrorMessage(error?.response?.data?.message || "Something wrong");
     }
   };
 
   return (
     <AuthLayout title="Sign In">
-      <form className="flex flex-col gap-5 mb-4" onSubmit={onSubmit}>
-        <div className="input-wrap">
-          <Label id="email">
-            <Icon.Mail /> Email
-          </Label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            className="input"
-          />
-        </div>
-        <div className="input-wrap">
-          <Label id="password">
-            <Icon.Lock /> Password
-          </Label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            className="input"
-          />
-        </div>
-        <Button className="text-lg mt-5 transition-base">Sign In</Button>
-      </form>
-      <p className="text-center">
-        Dosen't have an account?
-        <Link
-          to="/signup"
-          className="text-primary-base font-bold ml-2 hover:text-secondary-dark transition-base"
-        >
-          Sign up
-        </Link>
-      </p>
+      {errorMessage ? (
+        <ErrorResponse
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+          buttonText="Back to sign in"
+        />
+      ) : (
+        <>
+          <form className="flex flex-col gap-5 mb-4" onSubmit={onSubmit}>
+            <div className="input-wrap">
+              <Label id="email">
+                <Icon.Mail /> Email
+              </Label>
+              <Input type="email" name="email" id="email" required />
+            </div>
+            <div className="input-wrap">
+              <Label id="password">
+                <Icon.Lock /> Password
+              </Label>
+              <Input type="password" name="password" id="password" required />
+            </div>
+            <Button className="text-lg mt-5 transition-base">Sign In</Button>
+          </form>
+          <p className="text-center">
+            Dosen't have an account?
+            <Link
+              to="/signup"
+              className="text-primary-base font-bold ml-2 hover:text-secondary-dark transition-base"
+            >
+              Sign up
+            </Link>
+          </p>
+        </>
+      )}
     </AuthLayout>
   );
 };
