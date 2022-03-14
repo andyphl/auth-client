@@ -2,14 +2,17 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import axios from "../services/axios.services";
 
+const isEmpty = (obj) => {
+  for (let key in obj) return false;
+  return true;
+};
+
 const useRefreshToken = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   const refresh = async () => {
     try {
-      const response = await axios.get("/api/auth/refresh", {
-        withCredentials: true,
-      });
+      const response = await axios.get("/api/auth/refresh");
       setAuth((prevAuth) => {
         console.log(prevAuth.token);
         console.log(response.data.token);
@@ -17,7 +20,9 @@ const useRefreshToken = () => {
       });
       return response.data.token;
     } catch (error) {
-      setAuth({});
+      if (!isEmpty(auth)) {
+        setAuth({});
+      }
     }
   };
 

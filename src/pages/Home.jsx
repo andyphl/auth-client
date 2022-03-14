@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import useRefreshToken from "../hooks/useRefreshToken";
 import axios from "../services/axios.services";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 
 export const Home = () => {
   const refresh = useRefreshToken();
-  const setAuth = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   const onClick = () => {
     refresh();
@@ -27,9 +27,14 @@ export const Home = () => {
   return (
     <div className="flex gap-5">
       <Link to="/protect">Protect</Link>
-      <Link to="/signin">Sign In</Link>
-      <button onClick={onClick}>Refresh</button>
-      <button onClick={signOut}>Sign Out</button>
+      {!auth.token ? (
+        <Link to="/signin">Sign In</Link>
+      ) : (
+        <>
+          <button onClick={onClick}>Refresh</button>
+          <button onClick={signOut}>Sign Out</button>
+        </>
+      )}
     </div>
   );
 };
