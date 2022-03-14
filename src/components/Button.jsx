@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
-export const Button = ({ className, children }) => {
+export const Button = ({ className, children, ...restProps }) => {
   return (
-    <button className={clsx("btn", className)} type="submit">
+    <button {...restProps} className={clsx("btn", className)} type="submit">
       {children}
     </button>
   );
