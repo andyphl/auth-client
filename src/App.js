@@ -8,9 +8,9 @@ const App = () => {
     <div className="w-screen min-h-screen flex-center flex-col">
       <BrowserRouter>
         <Routes>
-          <Route path="/signin" exact element={<SignIn />} />
-          <Route path="/signUp" exact element={<SignUp />} />
           <Route element={<PersistLogin />}>
+            <Route path="/signin" exact element={<SignIn />} />
+            <Route path="/signUp" exact element={<SignUp />} />
             <Route path="/" exact element={<Home />} />
             <Route element={<RequireAuth />}>
               <Route path="/protect" exact element={<Protect />} />

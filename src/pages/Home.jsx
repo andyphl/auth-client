@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useRefreshToken from "../hooks/useRefreshToken";
 import axios from "../services/axios.services";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 
 export const Home = () => {
