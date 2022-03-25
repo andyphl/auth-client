@@ -102,10 +102,12 @@ export const SignUp = () => {
                   />
                 </div>
                 <div className="input-wrap">
-                  <Label id="email">
-                    <Icon.Mail /> Email
+                  <div className="inline-flex gap-2">
+                    <Label id="email">
+                      <Icon.Mail /> Email
+                    </Label>
                     <ValidIcon target={email} isTargetValid={isEmailValid} />
-                  </Label>
+                  </div>
                   <Input
                     type="email"
                     name="email"
@@ -119,13 +121,15 @@ export const SignUp = () => {
                   </ValidMessage>
                 </div>
                 <div className="input-wrap">
-                  <Label id="password">
-                    <Icon.Lock /> Password
+                  <div className="inline-flex gap-2">
+                    <Label id="password">
+                      <Icon.Lock /> Password
+                    </Label>
                     <ValidIcon
                       target={password}
                       isTargetValid={isPasswordValid}
                     />
-                  </Label>
+                  </div>
                   <Input
                     type="password"
                     name="password"
@@ -146,13 +150,15 @@ export const SignUp = () => {
                   </ValidMessage>
                 </div>
                 <div className="input-wrap">
-                  <Label id="password-again">
-                    <Icon.Lock /> Enter password again
+                  <div className="inline-flex gap-2">
+                    <Label id="password-again">
+                      <Icon.Lock /> Enter password again
+                    </Label>
                     <ValidIcon
                       target={passwordAgain}
                       isTargetValid={isPasswordMatch}
                     />
-                  </Label>
+                  </div>
                   <Input
                     type="password"
                     id="password-again"
